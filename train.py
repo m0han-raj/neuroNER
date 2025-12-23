@@ -65,10 +65,10 @@ def main():
 
     print("🔹 Loading datasets...")
     train_ds = TamilNERDataset(
-        TRAIN_PATH, word_vocab, char_vocab, label_vocab, MAX_LEN
+        TRAIN_PATH, word_vocab, char_vocab, label_vocab, MAX_LEN, max_samples=50000
     )
     val_ds = TamilNERDataset(
-        VAL_PATH, word_vocab, char_vocab, label_vocab, MAX_LEN
+        VAL_PATH, word_vocab, char_vocab, label_vocab, MAX_LEN, max_samples=10000
     )
 
     train_loader = DataLoader(
