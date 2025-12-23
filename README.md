@@ -1,4 +1,4 @@
-# Tamil NER (Named Entity Recognition)
+# Named Entity Recognition
 
 A BiLSTM-CRF model for Named Entity Recognition in Tamil text using character-level and word-level embeddings.
 
