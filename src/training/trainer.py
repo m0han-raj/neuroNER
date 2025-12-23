@@ -5,29 +5,16 @@ def train_one_epoch(model, dataloader, optimizer, device):
     total_loss = 0.0
 
     for batch in dataloader:
-        words, chars, tags = zip(*batch)
-
-        max_len = max(len(w) for w in words)
-
-        words = torch.tensor(
-            [w + [0] * (max_len - len(w)) for w in words],
-            device=device
-        )
-
-        tags = torch.tensor(
-            [t + [0] * (max_len - len(t)) for t in tags],
-            device=device
-        )
-
-        chars = torch.tensor(
-            [c + [[0]*20] * (max_len - len(c)) for c in chars],
-            device=device
-        )
-
-        mask = words != 0
+        words, chars, tags, mask = batch
+        
+        words = words.to(device)
+        chars = chars.to(device)
+        tags = tags.to(device)
+        mask = mask.to(device)
 
         optimizer.zero_grad()
         loss = model(words, chars, tags, mask)
+        loss = loss.mean()  # Average loss across batch
         loss.backward()
         optimizer.step()
 

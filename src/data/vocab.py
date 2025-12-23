@@ -1,7 +1,7 @@
 import json
 from collections import Counter
 
-def build_vocabs(path):
+def build_vocabs(path, min_freq=2):
     word_counter = Counter()
     char_counter = Counter()
     label_set = set()
@@ -19,8 +19,11 @@ def build_vocabs(path):
     char_vocab = {"<PAD>": 0, "<UNK>": 1}
     label_vocab = {}
 
-    for w in word_counter:
-        word_vocab[w] = len(word_vocab)
+    # Only include words that appear at least min_freq times
+    for w, count in word_counter.items():
+        if count >= min_freq:
+            word_vocab[w] = len(word_vocab)
+    
     for c in char_counter:
         char_vocab[c] = len(char_vocab)
     for l in sorted(label_set):

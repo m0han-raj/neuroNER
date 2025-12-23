@@ -28,6 +28,7 @@ def collate_fn(batch):
     words, chars, tags = zip(*batch)
 
     max_len = max(len(w) for w in words)
+    max_char_len = 20  # Fixed character length per word
 
     word_tensor = torch.tensor(
         [w + [0] * (max_len - len(w)) for w in words],
@@ -39,10 +40,14 @@ def collate_fn(batch):
         dtype=torch.long
     )
 
-    char_tensor = torch.tensor(
-        [c + [[0] * 20] * (max_len - len(c)) for c in chars],
-        dtype=torch.long
-    )
+    # Pad each word's character sequence to max_char_len, then pad sequence to max_len
+    char_list = []
+    for char_seq in chars:
+        padded_chars = [c + [0] * (max_char_len - len(c)) for c in char_seq]
+        padded_chars += [[0] * max_char_len] * (max_len - len(char_seq))
+        char_list.append(padded_chars)
+    
+    char_tensor = torch.tensor(char_list, dtype=torch.long)
 
     mask = word_tensor != 0
 
@@ -54,7 +59,7 @@ def collate_fn(batch):
 # =========================
 def main():
     print("🔹 Building vocabularies...")
-    word_vocab, char_vocab, label_vocab = build_vocabs(TRAIN_PATH)
+    word_vocab, char_vocab, label_vocab = build_vocabs(TRAIN_PATH, min_freq=3)
 
     print(f"Words: {len(word_vocab)} | Chars: {len(char_vocab)} | Labels: {len(label_vocab)}")
 
@@ -107,7 +112,7 @@ def main():
                     "char_vocab": char_vocab,
                     "label_vocab": label_vocab,
                 },
-                "best_model.pt"
+                "trained_models/best_model.pt"
             )
             print("✅ Saved best model")
 

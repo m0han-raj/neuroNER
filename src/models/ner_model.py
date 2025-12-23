@@ -17,7 +17,7 @@ class NERModel(nn.Module):
         )
 
         self.fc = nn.Linear(256, len(label_vocab))
-        self.crf = CRF(len(label_vocab), batch_first=True)
+        self.crf = CRF(len(label_vocab))
 
     def forward(self, words, chars, tags=None, mask=None):
         x = self.word_emb(words)
