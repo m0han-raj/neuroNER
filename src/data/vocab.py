@@ -1,10 +1,12 @@
 import json
 from collections import Counter
 
-def build_vocabs(path, min_freq=2):
+def build_vocabs(path, min_freq=2, max_samples=None):
     word_counter = Counter()
     char_counter = Counter()
     label_set = set()
+    
+    samples_read = 0
 
     with open(path, encoding="utf-8") as f:
         for line in f:
@@ -14,6 +16,10 @@ def build_vocabs(path, min_freq=2):
                 for c in w:
                     char_counter[c] += 1
                 label_set.add(t)
+            
+            samples_read += 1
+            if max_samples and samples_read >= max_samples:
+                break
 
     word_vocab = {"<PAD>": 0, "<UNK>": 1}
     char_vocab = {"<PAD>": 0, "<UNK>": 1}

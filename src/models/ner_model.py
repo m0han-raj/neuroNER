@@ -28,4 +28,4 @@ class NERModel(nn.Module):
 
         if tags is not None:
             return -self.crf(emissions, tags, mask)
-        return self.crf.decode(emissions, mask)
+        return self.crf.viterbi_decode(emissions, mask)

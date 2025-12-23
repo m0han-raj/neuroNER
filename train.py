@@ -59,7 +59,7 @@ def collate_fn(batch):
 # =========================
 def main():
     print("🔹 Building vocabularies...")
-    word_vocab, char_vocab, label_vocab = build_vocabs(TRAIN_PATH, min_freq=3)
+    word_vocab, char_vocab, label_vocab = build_vocabs(TRAIN_PATH, min_freq=3, max_samples=50000)
 
     print(f"Words: {len(word_vocab)} | Chars: {len(char_vocab)} | Labels: {len(label_vocab)}")
 
