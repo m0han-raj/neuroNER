@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 
+
 class CharCNN(nn.Module):
     def __init__(self, vocab_size, emb_dim=30, out_ch=50):
         super().__init__()
@@ -9,7 +10,7 @@ class CharCNN(nn.Module):
 
     def forward(self, x):
         B, T, C = x.size()
-        x = self.emb(x).view(B*T, C, -1).transpose(1,2)
+        x = self.emb(x).view(B * T, C, -1).transpose(1, 2)
         x = torch.relu(self.conv(x))
         x = torch.max(x, 2)[0]
         return x.view(B, T, -1)

@@ -33,7 +33,7 @@ neuroNER/
 
 ## Entity Types
 
-Common Tamil NER tags (based on your dataset):
+Tags used:
 - `B-PER` / `I-PER`: Person names
 - `B-LOC` / `I-LOC`: Locations
 - `B-ORG` / `I-ORG`: Organizations
@@ -71,8 +71,8 @@ pip install -r requirements.txt
 
 **Core Dependencies:**
 - Python 3.8+
-- PyTorch 2.9+
-- TorchCRF 1.1.0
+- PyTorch
+- TorchCRF
 - numpy, tqdm
 
 ## Dataset Format
@@ -99,6 +99,7 @@ This project uses the [Naamapadam dataset](https://huggingface.co/datasets/ai4bh
     ```bash
     git clone https://github.com/m0han-raj/neuroNER.git
     cd neuroNER
+    ```
 2. **Create virtual environment** (recommended):
    ```bash
    python -m venv env
@@ -182,9 +183,9 @@ MAX_LEN = 80
 ```
 Model will be saved in `trained_models/best_model.pt`
 
-## Citation
+## References
 
-If you use this code, please cite:
+This project is inspired by NeuroNER:
 
 ```bibtex
 @article{dernoncourt2017neuroner,
@@ -195,3 +196,7 @@ If you use this code, please cite:
   url= {https://arxiv.org/abs/1705.05487}
 }
 ```
+
+## License
+
+MIT. See [LICENSE](LICENSE).

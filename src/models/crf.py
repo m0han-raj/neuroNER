@@ -1,5 +1,6 @@
-from TorchCRF import CRF
 import torch.nn as nn
+from TorchCRF import CRF
+
 
 class CRFLayer(nn.Module):
     def __init__(self, num_labels):

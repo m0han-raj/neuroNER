@@ -1,7 +1,9 @@
-import torch.nn as nn
 import torch
+import torch.nn as nn
 from TorchCRF import CRF
+
 from .char_cnn import CharCNN
+
 
 class NERModel(nn.Module):
     def __init__(self, word_vocab, char_vocab, label_vocab):
@@ -10,10 +12,7 @@ class NERModel(nn.Module):
         self.char_enc = CharCNN(len(char_vocab))
 
         self.lstm = nn.LSTM(
-            input_size=150,
-            hidden_size=128,
-            bidirectional=True,
-            batch_first=True
+            input_size=150, hidden_size=128, bidirectional=True, batch_first=True
         )
 
         self.fc = nn.Linear(256, len(label_vocab))
