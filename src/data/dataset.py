@@ -1,9 +1,13 @@
 import json
+
 import torch
 from torch.utils.data import Dataset
 
+
 class TamilNERDataset(Dataset):
-    def __init__(self, path, word_vocab, char_vocab, label_vocab, max_len=80, max_samples=None):
+    def __init__(
+        self, path, word_vocab, char_vocab, label_vocab, max_len=80, max_samples=None
+    ):
         self.samples = []
         self.word_vocab = word_vocab
         self.char_vocab = char_vocab
@@ -18,7 +22,7 @@ class TamilNERDataset(Dataset):
                 words = obj["words"][:max_len]
                 labels = obj["ner"][:max_len]
                 self.samples.append((words, labels))
-                
+
                 if max_samples and len(self.samples) >= max_samples:
                     break
 
